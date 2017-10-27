@@ -1,0 +1,13 @@
+---
+declared-services:
+  personality-insights-service:
+    label: personality_insights
+    plan: tiered
+
+applications:
+- name: tla-pi
+  command: python server.py
+  path: .
+  memory: 256M
+  services:
+  - personality-insights-service
