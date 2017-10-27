@@ -94,6 +94,7 @@ $(document).ready(function() {
     });
   });
 
+
   /**
    * Display an error or a default message
    * @param  {String} error The error

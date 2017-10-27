@@ -105,6 +105,7 @@
   height: 100%;
 }
 
+
 /* Portrait tablets and small desktops */
 @media (max-width: 991px) {
     .col540px {
