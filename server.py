@@ -21,6 +21,7 @@ import requests
 import json
 from mako.template import Template
 from mako.lookup import TemplateLookup
+import twitteranalyzer
 
 
 class PersonalityInsightsService:
@@ -97,9 +98,14 @@ class DemoService(object):
         and return the response.
         """
         try:
-            print text
-            profileJson = self.service.getProfile(text)
-            return json.dumps(profileJson)
+            if (text[0] == '@'):
+                print text[1:]
+                json = twitteranalyzer.twitter_analysis(text[1:])
+                print json
+                return json
+            else:
+                profileJson = self.service.getProfile(text)
+                return json.dumps(profileJson)
         except Exception as e:
             print("ERROR: %s" % e)
             return str(e)

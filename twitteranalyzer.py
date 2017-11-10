@@ -19,19 +19,14 @@ def convert_status_to_pi_content_item(s):
         'forward': False
     }
 
-def twitter_analysis():
-  handle = sys.argv[1]
-
-  print config.twitter_consumer_key
-  print config.twitter_consumer_secret
-  print config.twitter_access_token
-  print config.twitter_access_secret
+def twitter_analysis(handle):
+  #handle = sys.argv[1]
 
   twitter_api = twitter.Api(consumer_key=config.twitter_consumer_key,
                             consumer_secret=config.twitter_consumer_secret,
                             access_token_key=config.twitter_access_token,
                             access_token_secret=config.twitter_access_secret,
-                            debugHTTP=True)
+                            debugHTTP=False)
 
   max_id = None
   statuses = []
@@ -68,4 +63,4 @@ def twitter_analysis():
   return json.dumps(json.loads(r.text))
 
 if __name__ == '__main__':
-  twitter_analysis()
+  twitter_analysis(sys.argv[1])
