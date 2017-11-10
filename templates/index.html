@@ -96,9 +96,12 @@
   <form class="form-inline" style="display: flex;" action="/action_page.php">
     <div class="form-group">
       <label for="email">Twitter Handle:</label>
-      <input type="email" class="form-control" id="email" placeholder="Enter the twitter handle" name="handle">
+		<textarea rows="8" required
+			placeholder="Please enter the text to analyze (minimum of 100 words)..."
+			class="content2 form-control">${content}
+		</textarea>
     </div>
-				<button type="button" class="btn btn-block analysis-btn" style="width: 10%; margin-left: 1%;">Analyze</button>
+				<button type="button" class="btn btn-block analysis2-btn" style="width: 10%; margin-left: 1%;">Analyze</button>
   </form>
 </div>
                         </div>

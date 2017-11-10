@@ -1,7 +1,7 @@
 import sys
 import requests
 import json
-import twitter
+import twitter 
 import config
 
 
@@ -19,45 +19,53 @@ def convert_status_to_pi_content_item(s):
         'forward': False
     }
 
+def twitter_analysis():
+  handle = sys.argv[1]
 
-handle = sys.argv[1]
+  print config.twitter_consumer_key
+  print config.twitter_consumer_secret
+  print config.twitter_access_token
+  print config.twitter_access_secret
 
-twitter_api = twitter.Api(consumer_key=config.twitter_consumer_key,
-                          consumer_secret=config.twitter_consumer_secret,
-                          access_token_key=config.twitter_access_token,
-                          access_token_secret=config.twitter_access_secret,
-                          debugHTTP=True)
+  twitter_api = twitter.Api(consumer_key=config.twitter_consumer_key,
+                            consumer_secret=config.twitter_consumer_secret,
+                            access_token_key=config.twitter_access_token,
+                            access_token_secret=config.twitter_access_secret,
+                            debugHTTP=True)
 
-max_id = None
-statuses = []
-for x in range(0, 16):  # Pulls max number of tweets from an account
-    if x == 0:
-        statuses_portion = twitter_api.GetUserTimeline(screen_name=handle,
-                                                       count=200,
-                                                       include_rts=False)
-        status_count = len(statuses_portion)
-        max_id = statuses_portion[status_count - 1].id - 1  # get id of last tweet and bump below for next tweet set
-    else:
-        statuses_portion = twitter_api.GetUserTimeline(screen_name=handle,
-                                                       count=200,
-                                                       max_id=max_id,
-                                                       include_rts=False)
-        status_count = len(statuses_portion)
-        max_id = statuses_portion[status_count - 1].id - 1  # get id of last tweet and bump below for next tweet set
-    for status in statuses_portion:
-        statuses.append(status)
+  max_id = None
+  statuses = []
+  for x in range(0, 16):  # Pulls max number of tweets from an account
+      if x == 0:
+          statuses_portion = twitter_api.GetUserTimeline(screen_name=handle,
+                                                         count=200,
+                                                         include_rts=False)
+          status_count = len(statuses_portion)
+          max_id = statuses_portion[status_count - 1].id - 1  # get id of last tweet and bump below for next tweet set
+      else:
+          statuses_portion = twitter_api.GetUserTimeline(screen_name=handle,
+                                                         count=200,
+                                                         max_id=max_id,
+                                                         include_rts=False)
+          status_count = len(statuses_portion)
+          max_id = statuses_portion[status_count - 1].id - 1  # get id of last tweet and bump below for next tweet set
+      for status in statuses_portion:
+          statuses.append(status)
 
-pi_content_items_array = map(convert_status_to_pi_content_item, statuses)
-pi_content_items = {'contentItems': pi_content_items_array}
+  pi_content_items_array = map(convert_status_to_pi_content_item, statuses)
+  pi_content_items = {'contentItems': pi_content_items_array}
 
-r = requests.post(config.pi_url + '/v2/profile',
-                  auth=(config.pi_username, config.pi_password),
-                  headers={
-                      'content-type': 'application/json',
-                      'accept': 'application/json'
-                  },
-                  data=json.dumps(pi_content_items)
-                  )
+  r = requests.post(config.pi_url + '/v2/profile',
+                    auth=(config.pi_username, config.pi_password),
+                    headers={
+                        'content-type': 'application/json',
+                        'accept': 'application/json'
+                    },
+                    data=json.dumps(pi_content_items)
+                    )
 
-print("Profile Request sent. Status code: %d, content-type: %s" % (r.status_code, r.headers['content-type']))
-print json.dumps(json.loads(r.text))
+  print("Profile Request sent. Status code: %d, content-type: %s" % (r.status_code, r.headers['content-type']))
+  return json.dumps(json.loads(r.text))
+
+if __name__ == '__main__':
+  twitter_analysis()
