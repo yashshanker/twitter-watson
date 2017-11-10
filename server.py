@@ -97,6 +97,7 @@ class DemoService(object):
         and return the response.
         """
         try:
+            print text
             profileJson = self.service.getProfile(text)
             return json.dumps(profileJson)
         except Exception as e:

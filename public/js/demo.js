@@ -24,6 +24,7 @@ $(document).ready(function() {
 
   // Jquery variables
   var $content = $('.content'),
+    $content2 = $('.content2'),
     $loading = $('.loading'),
     $error = $('.error'),
     $errorMsg = $('.errorMsg'),
@@ -67,6 +68,44 @@ $(document).ready(function() {
       type: 'POST',
       data: {
         text: $content.val()
+      },
+      url: '/',
+      dataType: 'json',
+      success: function(response) {
+        $loading.hide();
+
+        if (response.error) {
+          showError(response.error);
+        } else {
+          $results.show();
+          showTraits(response);
+          showTextSummary(response);
+          showVizualization(response);
+        }
+
+      },
+      error: function(xhr) {
+        $loading.hide();
+        var error;
+        try {
+          error = JSON.parse(xhr.responseText);
+        } catch(e) {}
+        showError(error.error || error);
+      }
+    });
+  });
+
+  $('.analysis2-btn').click(function(){
+    $('.analysis2-btn').blur();
+    $loading.show();
+    $error.hide();
+    $traits.hide();
+    $results.hide();
+
+    $.ajax({
+      type: 'POST',
+      data: {
+        text: "@" + $content2.val()
       },
       url: '/',
       dataType: 'json',
@@ -290,8 +329,8 @@ function showVizualization(theProfile) {
   function updateWordsCount() {
     var text = $content.val();
     var wordsCount = text.match(/\S+/g) ? text.match(/\S+/g).length : 0;
-    $('.wordsCount').css('color',wordsCount < 100 ? 'red' : 'gray');
-    $('.wordsCount').text(wordsCount + ' words');
+    //$('.wordsCount').css('color',wordsCount < 100 ? 'red' : 'gray');
+    //$('.wordsCount').text(wordsCount + ' words');
   }
   $content.keyup(updateWordsCount);
   updateWordsCount();
