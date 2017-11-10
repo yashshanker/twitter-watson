@@ -108,3 +108,30 @@ To troubleshoot your Bluemix app the main useful source of information are the l
 [cloud_foundry]: https://github.com/cloudfoundry/cli
 [getting_started]: https://www.ibm.com/watson/developercloud/doc/common/
 [sign_up]: https://apps.admin.ibmcloud.com/manage/trial/bluemix.html?cm_mmc=WatsonDeveloperCloud-_-LandingSiteGetStarted-_-x-_-CreateAnAccountOnBluemixCLI
+
+
+
+
+{
+  "personality_insights": [
+    {
+      "credentials": {
+        "url": "https://gateway.watsonplatform.net/personality-insights/api",
+        "username": "60d9b8fe-794e-4bdc-b30d-90e37dfd35c8",
+        "password": "5fVgmnU3Youu"
+      },
+      "syslog_drain_url": null,
+      "volume_mounts": [],
+      "label": "personality_insights",
+      "provider": null,
+      "plan": "lite",
+      "name": "Personality Insights-gp",
+      "tags": [
+        "watson",
+        "ibm_created",
+        "ibm_dedicated_public",
+        "lite"
+      ]
+    }
+  ]
+}

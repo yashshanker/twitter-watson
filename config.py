@@ -7,5 +7,5 @@ twitter_access_secret = 'Js5tZqtOHye6PjJKLinfgKIuCcYsnvWHoLXPgk9r8Yn2N'
 
 
 pi_url = 'https://gateway.watsonplatform.net/personality-insights/api'
-pi_username = 'a2224ae4-365c-4bd8-95dc-9118f6851ed6'
-pi_password = 'XqfZ7pa7CDOy'
+pi_username = '60d9b8fe-794e-4bdc-b30d-90e37dfd35c8'
+pi_password = '5fVgmnU3Youu'

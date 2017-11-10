@@ -34,8 +34,8 @@ class PersonalityInsightsService:
 
         # Local variables
         self.url = "https://gateway.watsonplatform.net/personality-insights/api"
-        self.username = "a2224ae4-365c-4bd8-95dc-9118f6851ed6"
-        self.password = "XqfZ7pa7CDOy"
+        self.username = "60d9b8fe-794e-4bdc-b30d-90e37dfd35c8"
+        self.password = "5fVgmnU3Youu"
 
         if vcapServices is not None:
             print("Parsing VCAP_SERVICES")
@@ -52,7 +52,7 @@ class PersonalityInsightsService:
 
     def getProfile(self, text):
         """Returns the profile by doing a POST to /v2/profile with text"""
-
+        #print text
         if self.url is None:
             raise Exception("No Personality Insights service is bound to this app")
         response = requests.post(self.url + "/v2/profile",
